@@ -1,0 +1,34 @@
+﻿@*Урок 10 (5) ********************************@
+@page "/games/edit/{GameId:int}"
+
+@*Урок 15 (4) ********************************@
+@inject IRepository _db
+@*********************************************@
+
+<div class="row">
+    @*Урок 15 (4.1) *@
+    <div class="col">
+        <h1 class="text-info text-center text-uppercase">Create Game</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col text-center">
+        <GameForm OnValidSubmit="EditTheGame" Game="Game" />
+    </div>
+</div>
+
+@code {
+    [Parameter] public int GameId { get; set; }
+    Game Game;
+
+    protected override void OnInitialized()
+    {
+        Game = _db.GetGameById(GameId);
+    }
+
+    void EditTheGame()
+    {
+        
+    }
+}
+@*********************************************@

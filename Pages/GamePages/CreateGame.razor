@@ -1,0 +1,46 @@
+﻿@*Урок 10 (5) ********************************@
+@page "/games/create"
+@*Урок 10 (8.0) *@
+@inject NavigationManager navManager
+@*Урок 10 (8.1) *@
+
+@*Урок 15 *@
+@inject IRepository _db
+<div class="row">
+    <div class="col">
+        <h1 class="text-info text-center text-uppercase">Create Game</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @*Урок 15 (3.2) *@
+        <GameForm OnValidSubmit="AddNewGame" Game="Game" NotSelectedGenres="notSelectedGenres" />
+    </div>
+</div>
+
+
+@code {
+    @*Урок 15 (3.3) *@
+    Game Game = new();
+
+    @*Урок 10 (8.2) *@
+    @*Урок 15 *@
+    void AddNewGame()
+    {
+        bool result = _db.CreateNewGame(Game);
+
+        if (result)
+            navManager.NavigateTo("/");
+    }
+
+    @*Урок 16 (6.1)*@
+    // Получаем все игровые жанры для добавления их в список не выбранных
+    // И дальнейшей передачи его в параметр формы создания игр
+    List<Genre> notSelectedGenres = new();
+
+    protected override void OnInitialized()
+    {
+        notSelectedGenres = _db.GetAllGenres();
+    }
+}
+@*********************************************@

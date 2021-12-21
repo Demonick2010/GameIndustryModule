@@ -1,0 +1,64 @@
+﻿@*Урок 13 (8)*@
+@inject IFileReaderService _fileReader
+@using Tewr.Blazor.FileReader
+@using System.IO
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroupFileAddon">@Label</span>
+    </div>
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="inputGroupFile" aria-describedby="inputGroupFileAddon" @ref="inputElement" @onchange="OnImageFileSelectedHandler" accept=".jpg,.jpeg,.png" />
+        <label class="custom-file-label" for="inputGroupFile">@fileName</label>
+    </div>
+</div>
+<div>
+    @if (imageBase64 is not null)
+    {
+        <div>
+            <div class="my-3 mr-3">
+                <img src="data:image/jpeg;base64,@imageBase64" class="img-thumbnail" width="200" />
+            </div>
+        </div>
+    }
+    @if (ImageUrl is not null)
+    {
+        <div>
+            <div class="my-3 mr-3">
+                <img src="@ImageUrl" class="img-thumbnail" width="200" />
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = "Image";
+    [Parameter] public string ImageUrl { get; set; }
+    [Parameter] public EventCallback<string> OnImageFileSelected { get; set; }
+
+    string imageBase64;
+    string fileName = "Choose file";
+    ElementReference inputElement;
+
+    async Task OnImageFileSelectedHandler()
+    {
+        // Начинаем перебирать все файлы, загруженные пользователем
+        foreach (var item in await _fileReader.CreateReference(inputElement).EnumerateFilesAsync())
+        {
+            using (MemoryStream ms = await item.CreateMemoryStreamAsync(4 * 1024))
+            {
+                IFileInfo fileInfo = await item.ReadFileInfoAsync();
+                fileName = fileInfo.Name;
+
+                var bytesImage = new byte[ms.Length];
+                ms.Read(bytesImage, 0, (int)ms.Length);
+                imageBase64 = Convert.ToBase64String(bytesImage);
+
+                await OnImageFileSelected.InvokeAsync(imageBase64);
+
+                ImageUrl = null;
+                StateHasChanged();
+            }
+        }
+    }
+}

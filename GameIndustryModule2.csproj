@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="PageComponents\Typeahead.razor" />
+    <Content Remove="Pages\DeveloperPages\DeveloperMarkdownInput.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Markdig" Version="0.25.0" />
+    <PackageReference Include="Tewr.Blazor.FileReader" Version="3.2.0.21211" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\DeveloperPages\DeveloperMarkdownInput.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="PageComponents\Typeahead.razor" />
+    <_ContentIncludedByDefault Remove="Pages\DeveloperPages\DeveloperMarkdownInput.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="PageComponents\DeveloperMarkdownInput.razor" />
+    <None Include="Shared\Typeahead.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="PageComponents\Typeahead.razor" />
+  </ItemGroup>
+
+</Project>

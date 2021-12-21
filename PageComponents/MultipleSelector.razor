@@ -1,0 +1,74 @@
+﻿@using GameIndustryModule2.Helpers
+@*Урок 16 (3.1)*@
+@*Далее сразу создаём папку Helpers и в ней вспомогательный класс MultipleSelectorHelperModel*@
+
+@*Урок 16 (3.4)*@
+@*Создаём разметку компонента*@
+<div class="row">
+
+	<ul class="list-group selectable-list mr-4">
+		@foreach (var item in OnNotSelected)
+		{
+			<li class="list-group-item mb-1" @onclick="() => Select(item)">
+				@item.Value
+			</li>
+		}
+	</ul>
+
+	<div>
+		@if (allSelected)
+		{
+			<button class="btn btn-danger" @onclick="SelectDeselectAll">Deselect All</button>
+		}
+		else
+		{
+			<button class="btn btn-primary" @onclick="SelectDeselectAll">Select All</button>
+		}
+	</div>
+
+	<ul class="list-group selectable-list ml-4">
+		@foreach (var item in OnSelected)
+		{
+			<li class="list-group-item mb-1 list-group-item-info" @onclick="() => Deselect(item)">
+				@item.Value
+			</li>
+		}
+	</ul>
+</div>
+
+@code {
+	// Урок 16 (3.3)
+	// Создаём 2 массива для хранения выбранных и невыбранных жанров
+	[Parameter] public List<MultipleSelectorHelperModel> OnSelected { get; set; } = new();
+	[Parameter] public List<MultipleSelectorHelperModel> OnNotSelected { get; set; } = new();
+
+	bool allSelected;
+
+	void Select(MultipleSelectorHelperModel selectedItem)
+	{
+		OnSelected.Add(selectedItem);
+		OnNotSelected.Remove(selectedItem);
+	}
+
+	void Deselect(MultipleSelectorHelperModel deselectedItem)
+	{
+		OnNotSelected.Add(deselectedItem);
+		OnSelected.Remove(deselectedItem);
+	}
+
+	void SelectDeselectAll()
+	{
+		if(allSelected)
+		{
+			OnNotSelected.AddRange(OnSelected);
+			OnSelected.Clear();
+			allSelected = false;
+		}
+		else
+		{
+			OnSelected.AddRange(OnNotSelected);
+			OnNotSelected.Clear();
+			allSelected = true;
+		}
+	}
+}

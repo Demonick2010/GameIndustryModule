@@ -1,0 +1,16 @@
+﻿@*Урок 10 (5) ********************************@
+@*@page "/games/"*@
+@*Урок 10 (10.1) *@
+@page "/games/{GameId:int}"
+@*Урок 10 (10.3) *@
+@page "/games/{GameId:int}/{GameName}"
+
+<h3>GameDetails</h3>
+
+@code {
+    @*Урок 10 (10.2) *@
+    [Parameter] public int GameId { get; set; }
+    @*Урок 10 (10.4) *@
+    [Parameter] public string GameName { get; set; }
+}
+@*********************************************@

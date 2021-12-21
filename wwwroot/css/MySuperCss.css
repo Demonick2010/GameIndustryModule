@@ -1,0 +1,125 @@
+﻿/*.individual-game-container {
+    margin: 3%;
+    margin-bottom: 10px;
+    text-align: center;
+}*/
+
+.game-image {
+    max-width: 200px;
+    max-height: 250px;
+}
+
+.hrfix {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.game-name {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: dodgerblue;
+    background-color: #e9e6ff;
+    border-radius: 5px 5px 0 0;
+}
+
+.card-image {
+    border-left: 1px solid rgba(0,0,0,.1);
+    border-right: 1px solid rgba(0,0,0,.1);
+    background-color: rgba(0,0,0,.1);
+    padding: 5px 0px;
+}
+
+.game-card-footer {
+    background-color: #e9e6ff;
+    border-radius: 0 0 5px 5px;
+}
+
+.form-markdown {
+    display: flex;
+}
+
+    .form-markdown textarea {
+        width: 500px;
+        height: 500px;
+        margin-right: 15px;
+    }
+
+    .form-markdown .container-markdown {
+        border: 1px dashed #000;
+        width: 500px;
+        height: 500px;
+    }
+
+/* Урок 16 (7) */
+.selectable-list {
+    padding: 20px;
+    border-radius: 3px;
+    border: 1px groove #6c757d;
+    min-width: 150px;
+}
+
+.list-group-item:hover {
+    cursor: pointer;
+    border: 1px dashed #000;
+}
+
+/* Урок 17 (3) */
+.typeahead {
+    position: relative;
+    width: 100%;
+    border: 1px solid #bfbfbf;
+    border-radius: 5px;
+}
+
+.typeahead-controls {
+    position: relative;
+    cursor: text;
+    display: flex;
+}
+
+.typeahead-input {
+    flex: 1;
+    max-width: 100%;
+    border: none;
+    padding: .5rem;
+    border-radius: 5px;
+}
+
+.typeahead:focus-within {
+    box-shadow: 0 0 0 0.2rem rgba(38,143,255,.5);
+}
+
+.typeahead-input:focus {
+    outline: none;
+}
+
+.typeahead-all-results {
+    position: absolute;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    border: 1px solid #dbdbdb;
+    min-height: 2rem;
+    max-height: 30rem;
+    overflow-y: auto;
+    z-index: 10;
+    width: 100%;
+    background: #fff;
+}
+
+.typeahead-result {
+    padding: .5rem;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+
+.typeahead-result:hover,
+.typeahead-result:focus {
+    background-color: #007bff;
+    border-top: 1px solid #007bff;
+    border-bottom: 1px solid #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*********************************/

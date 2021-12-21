@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using System.Linq.Expressions
+
+@*Урок 14 (1)*@
+@*1. Наследуемся от базового класса, чтобы привязаться к свойству
+	базового класса через CurrentValue
+*@
+@inherits InputTextArea
+
+@*4. Делаем компонент типа Generic*@
+@typeparam TValue
+
+@*2. Создаём разметку, используя наследованный класс и его значения
+	в качестве привязки
+*@
+<div>
+	<label>@Label</label>
+	<div>
+		<textarea @bind-value="CurrentValue" @bind-value:event="oninput"></textarea>
+		@*<InputTextArea @bind-Value="CurrentValue" />*@
+		<ValidationMessage For="OnFor" />
+	</div>
+</div>
+<div>
+	<label>@Label (preview):</label>
+	@* Для вывода информации создаём новый компонент -> шаг 2 *@
+	<div class="container-markdown">
+		@*Возврат из MarkdownRenderer*@
+		<MarkdownRenderer MarkdownContent="@CurrentValue" />
+		@*Переходим в компонент DeveloperForm -> Шаг 3*@
+	</div>
+</div>
+
+@code {
+	[Parameter] public string Label { get; set; }
+	// 3. Создаём параметр для выражения (Привязка к ValidationMessage)
+	[Parameter] public Expression<Func<TValue>> OnFor { get; set; }
+}

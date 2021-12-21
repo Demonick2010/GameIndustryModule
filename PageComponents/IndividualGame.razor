@@ -1,0 +1,59 @@
+﻿@using System.Text.RegularExpressions
+@*Урок 9 модуль 2 (5)*@
+
+<div class="col-sm-12 col-md-4 p-3 text-center">
+    <div class="game-name">
+        @*Урок 10 (7.2)***********@
+        <a href="@url">@Game.ShortName</a>
+    </div>
+
+    <hr class="hrfix" />
+    <div class="card-image">
+        @*Урок 10 (7.1)***********@
+        <a href="@url">
+            @if (IsBase64(Game.Image))
+            {
+                <img src="data:image/jpeg;base64,@Game.Image" class="game-image" />
+            }
+            else
+            {
+                <img src="@Game.Image" alt="@Game.Name" class="game-image" />
+            }
+        </a>
+        @***********************@
+    </div>
+
+    <hr class="hrfix" />
+    <div class="game-card-footer">
+        <div class="btn-group mt-3 mb-3 text-center" role="group">
+
+            <a class="btn btn-outline-info" href="#"><i class="fas fa-edit"></i></a>
+            <button type="button" class="btn btn-outline-danger"
+                    @onclick="(() => DeleteGame.InvokeAsync(Game))">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Game Game { get; set; }
+    [Parameter] public EventCallback<Game> DeleteGame { get; set; }
+
+    @*Урок 10 (7.0)***********@
+    string url = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        @*Урок 10 (12)***********@
+        //url = $"games/{Game.Id}/{Game.Name.Replace(" ", "-")}";
+        url = $"games/{Game.Id}/{Uri.EscapeDataString(Game.Name)}";
+    }
+
+    bool IsBase64(string base64)
+    {
+        base64 = base64.Trim();
+        return (base64.Length % 4 == 0) && Regex.IsMatch(base64, @"^[a-zA-Z0-9\+/]*={0,3}$", RegexOptions.None);
+    }
+}
+@*//////////////////////*@

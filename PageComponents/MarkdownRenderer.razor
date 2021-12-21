@@ -1,0 +1,33 @@
+﻿@*Урок 14 (2)*@
+@using Markdig
+
+@*4. Пишем саму размету вывода*@
+@if (HtmlContent is not null)
+{
+	@((MarkupString)HtmlContent)
+	@*Далее переходим в DeveloperMarkdownInput и делаем вызов этого компонента*@
+}
+
+@code {
+	// 1. С помощью параметра получем контент для отрисовки
+	[Parameter] public string MarkdownContent { get; set; }
+
+	// 2. Создаём приватную переменную для хранения сгенерированного
+	// HTML контента
+	string HtmlContent;
+
+	// 3. Нам надо сделать так, чтобы контент перерисовывался каждый раз,
+	// когда меняется значение нашего параметра, для этого воспользуемся
+	// методом жизненного цикла OnParametersSet
+	protected override void OnParametersSet()
+	{
+		if (!string.IsNullOrWhiteSpace(MarkdownContent))
+		{
+			HtmlContent = Markdown.ToHtml(MarkdownContent);
+		}
+		else
+		{
+			HtmlContent = null;
+		}
+	}
+}
