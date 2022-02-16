@@ -98,6 +98,7 @@
     position: absolute;
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
     border: 1px solid #dbdbdb;
+    border-radius: 0 0 5px 5px;
     min-height: 2rem;
     max-height: 30rem;
     overflow-y: auto;
@@ -113,13 +114,19 @@
 }
 
 
-.typeahead-result:hover,
-.typeahead-result:focus {
-    background-color: #007bff;
-    border-top: 1px solid #007bff;
-    border-bottom: 1px solid #007bff;
-    color: #fff;
-    cursor: pointer;
+    .typeahead-result:hover,
+    .typeahead-result:focus {
+        background-color: #17a2b8;
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
+        color: #fff;
+        cursor: pointer;
+    }
+
+input::placeholder {
+    color: #cbcbcb99;
+    font-size: 1.2em;
+    font-style: italic;
 }
 
 /*********************************/

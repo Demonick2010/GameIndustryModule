@@ -1,4 +1,6 @@
 ﻿@using GameIndustryModule2.Helpers
+
+@inject IRepository _db
 @*Урок 15 (3)*@
 <EditForm Model="Game" OnValidSubmit="OnValidSubmit">
 	<DataAnnotationsValidator />
@@ -46,6 +48,21 @@
 		<MultipleSelector OnSelected="Selected" OnNotSelected="NotSelected" />
 	</div>
 
+	@*Урок 17 (5.1)*@
+	<div class="form-group">
+		<label>Developers: </label>
+		<MultipleSelectorTypeahead Context="GameDeveloper" OnSearch="SearchHandler" OnSelectedElements="SelectedDevelopers">
+			@*Урок 17 (5.3)*@
+			<ResultTemplate>
+				<img style="width: 50px;" src="@GameDeveloper.Image" />
+				@GameDeveloper.Name
+			</ResultTemplate>
+			<ListTemplate>
+				@GameDeveloper.Name
+			</ListTemplate>
+		</MultipleSelectorTypeahead>
+	</div>
+
 	<button class="btn btn-primary" type="submit">Save Changes</button>
 </EditForm>
 
@@ -62,6 +79,9 @@
 	// Поскольку в компоненте мы работаем со вспомогательной меделью мультиселектора, создаём и её массивы
 	[Parameter] public List<MultipleSelectorHelperModel> Selected { get; set; } = new();
 	[Parameter] public List<MultipleSelectorHelperModel> NotSelected { get; set; } = new();
+
+	@*Урок 17 (5.4)*@
+	[Parameter] public List<GameDeveloper> SelectedDevelopers { get; set; } = new();
 
 	string imageUrl;
 
@@ -87,4 +107,10 @@
 		Game.Image = imageBase64;
 		imageUrl = null;
 	}
+
+	// Урок 17 (5.2)
+	async Task<IEnumerable<GameDeveloper>> SearchHandler(string searchText)
+    {
+        return _db.GetAllDevelopers();
+    }
 }
