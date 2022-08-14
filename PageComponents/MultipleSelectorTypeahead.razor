@@ -11,7 +11,7 @@
    {
        <li draggable="true" @ondragstart="(() => DragStartHandler(item))" @ondragover="(() => DragOverHandler(item))" class="list-group-item list-group-item-action">
            @ListTemplate(item)
-           <span class="badge badge-primary badge-pill" style="cursor: pointer;" @onclick="(() => OnSelectedElements.Remove(item))">X</span>
+           <span class="badge badge-primary badge-pill" style="cursor: pointer; vertical-align: middle;" @onclick="(() => OnSelectedElements.Remove(item))">X</span>
        </li>
    }
 </ul>

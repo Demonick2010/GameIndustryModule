@@ -32,7 +32,7 @@
 	</div>
 	<div class="form-check">
 		<InputCheckbox @bind-Value="Game.InSale" class="form-check-input" type="checkbox" id="gridCheck1" />
-		<label class="form-check-label" for="gridCheck1">In Sale?:</label>
+		<label class="form-check-label" for="gridCheck1">Is in Sale?:</label>
 	</div>
 
 	@*Урок 14 (3)*@
@@ -81,36 +81,36 @@
 	[Parameter] public List<MultipleSelectorHelperModel> NotSelected { get; set; } = new();
 
 	@*Урок 17 (5.4)*@
-	[Parameter] public List<GameDeveloper> SelectedDevelopers { get; set; } = new();
+[Parameter] public List<GameDeveloper> SelectedDevelopers { get; set; } = new();
 
-	string imageUrl;
+string imageUrl;
 
-	protected override void OnInitialized()
-	{
-		// Урок 16 (4.4)
-		// Конвертируем модель Genre в MultipleSelectorHelperModel
-		Selected = SelectedGenres.Select(x => new MultipleSelectorHelperModel(x.Id.ToString(), x.Name)).ToList();
-		NotSelected = NotSelectedGenres.Select(x => new MultipleSelectorHelperModel(x.Id.ToString(), x.Name)).ToList();
+protected override void OnInitialized()
+{
+    // Урок 16 (4.4)
+    // Конвертируем модель Genre в MultipleSelectorHelperModel
+    Selected = SelectedGenres.Select(x => new MultipleSelectorHelperModel(x.Id.ToString(), x.Name)).ToList();
+    NotSelected = NotSelectedGenres.Select(x => new MultipleSelectorHelperModel(x.Id.ToString(), x.Name)).ToList();
 
-		if (Game.ReleaseDate is null)
-			Game.ReleaseDate = DateTime.Now;
+    if (Game.ReleaseDate is null)
+        Game.ReleaseDate = DateTime.Now;
 
-		if (!string.IsNullOrWhiteSpace(Game.Image))
-		{
-			imageUrl = Game.Image;
-			Game.Image = null;
-		}
-	}
-
-	void ImageFileSelectedHandler(string imageBase64)
-	{
-		Game.Image = imageBase64;
-		imageUrl = null;
-	}
-
-	// Урок 17 (5.2)
-	async Task<IEnumerable<GameDeveloper>> SearchHandler(string searchText)
+    if (!string.IsNullOrWhiteSpace(Game.Image))
     {
-        return _db.GetAllDevelopers();
+        imageUrl = Game.Image;
+        Game.Image = null;
     }
+}
+
+void ImageFileSelectedHandler(string imageBase64)
+{
+    Game.Image = imageBase64;
+    imageUrl = null;
+}
+
+// Урок 17 (5.2)
+async Task<IEnumerable<GameDeveloper>> SearchHandler(string searchText)
+{
+    return _db.GetAllDevelopers();
+}
 }

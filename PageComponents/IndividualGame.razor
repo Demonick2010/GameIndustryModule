@@ -27,7 +27,7 @@
     <div class="game-card-footer">
         <div class="btn-group mt-3 mb-3 text-center" role="group">
 
-            <a class="btn btn-outline-info" href="#"><i class="fas fa-edit"></i></a>
+            <NavLink class="btn btn-outline-info" href="@($"games/edit/{Game.Id}")"><i class="fas fa-edit"></i></NavLink>
             <button type="button" class="btn btn-outline-danger"
                     @onclick="(() => DeleteGame.InvokeAsync(Game))">
                 <i class="fas fa-trash-alt"></i>
@@ -52,6 +52,9 @@
 
     bool IsBase64(string base64)
     {
+        if (string.IsNullOrWhiteSpace(base64))
+            return false;
+
         base64 = base64.Trim();
         return (base64.Length % 4 == 0) && Regex.IsMatch(base64, @"^[a-zA-Z0-9\+/]*={0,3}$", RegexOptions.None);
     }

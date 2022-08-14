@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using GameIndustryModule2.Models;
+﻿using DataAccess.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+//using DataAccess.Models;
 
 // Урок 9 модуль 2(8)
 namespace GameIndustryModule2.Repository

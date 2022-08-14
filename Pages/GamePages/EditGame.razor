@@ -8,7 +8,7 @@
 <div class="row">
     @*Урок 15 (4.1) *@
     <div class="col">
-        <h1 class="text-info text-center text-uppercase">Create Game</h1>
+        <h1 class="text-info text-center text-uppercase">Edit Game</h1>
     </div>
 </div>
 <div class="row">
@@ -23,6 +23,7 @@
 
     protected override void OnInitialized()
     {
+        Game = new();
         Game = _db.GetGameById(GameId);
     }
 

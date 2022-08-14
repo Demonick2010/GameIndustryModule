@@ -1,15 +1,11 @@
+using DataAccess;
 using GameIndustryModule2.Repository;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Tewr.Blazor.FileReader;
 
 namespace GameIndustryModule2
@@ -27,11 +23,18 @@ namespace GameIndustryModule2
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // Урок 18 (4) Конфигурируем базу данных в классе StartUp
+            services.AddDbContext<ApplicationDbContext>(options => 
+                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
             // Урок 9 модуль 2(8)
-            services.AddSingleton<IRepository, MockGamesRepository>();
+            //services.AddSingleton<IRepository, MockGamesRepository>();
+
+            // Урок 18 (12) Добавить конфигурацию реальной базы в класс StartUp
+            services.AddScoped<IRepository, SqlGamesRepository>();
 
             // Урок 13 (10)
             services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
